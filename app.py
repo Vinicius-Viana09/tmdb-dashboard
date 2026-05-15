@@ -218,9 +218,13 @@ with col2:
     st.markdown("### ⭐ Top 10 Filmes por Avaliação")
     st.caption("Filmes com maior nota média entre usuários (filtrados por volume de votos)")
 
-    top1 = top_avaliacao.iloc[0]
-    st.success(f"🥇 Maior avaliação: {top1['title']} — {top1['vote_average']}")
-    st.dataframe(traduzir_colunas(top_avaliacao))
+    # Proteção contra Dataframe vazio
+    if not top_avaliacao.empty:
+        top1 = top_avaliacao.iloc[0]
+        st.success(f"🥇 Maior avaliação: {top1['title']} — {top1['vote_average']}")
+        st.dataframe(traduzir_colunas(top_avaliacao))
+    else:
+        st.warning("Nenhum filme encontrado após os filtros aplicados.")
 
 
 # Ranking Filmes por Popularidade
